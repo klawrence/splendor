@@ -13,7 +13,7 @@ module Splendor
     end
 
     def self.load_cards
-      entries = YAML.load_file 'config/cards.yml'
+      entries = YAML.load_file filename
 
       # TODO fix this when we have all 90 cards
       (entries * 10).map do |definition|
@@ -23,6 +23,10 @@ module Splendor
 
     def to_s
       "LEVEL #{level}: #{gem} #{points} points"
+    end
+
+    def self.filename
+      Splendor.config_file 'cards.yml'
     end
   end
 end
