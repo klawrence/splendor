@@ -4,7 +4,7 @@ require 'splendor/noble'
 
 module Splendor
   class Game
-    attr_accessor :players, :cards_on_table, :gem_stacks
+    attr_accessor :players, :next_player, :cards_on_table, :gem_stacks
 
     def initialize
       load_cards
@@ -56,6 +56,20 @@ module Splendor
 
     def add_players
       @players = Splendor::Player.create_players 4
+      @next_player = @players.first
+    end
+
+    def choose_three_gems player, gems
+      # TODO check choices are valid
+      gems.each do |gem|
+        take_gem(gem, player)
+      end
+    end
+
+    private
+    def take_gem(gem, player)
+      gem_stacks[gem] -= 1
+      player.add_gem gem
     end
   end
 end
