@@ -28,9 +28,41 @@
   cost:
     sapphire: 4
 -
-  gem: sapphire
-  level: 1
+  gem: diamond
+  level: 2
+  points: 2
   cost:
-    sapphire: 1
+    ruby: 5
+-
+  gem: onyx
+  level: 2
+  points: 1
+  cost:
+    diamond: 3
     emerald: 3
+    onyx: 2
+-
+  gem: sapphire
+  level: 2
+  points: 2
+  cost:
+    diamond: 2
     ruby: 1
+    onyx: 4
+-
+  gem: diamond
+  level: 3
+  points: 4
+  cost:
+    onyx: 7
+-
+  gem: sapphire
+  level: 3
+  points: 3
+  cost:
+    diamond: 4
+    emerald: 3
+    ruby: 3
+    onyx: 3
+
+
