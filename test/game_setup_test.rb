@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class GameTest < Minitest::Test
+class GameSetupTest < Minitest::Test
   def setup
     @game = Splendor::Game.new
   end
