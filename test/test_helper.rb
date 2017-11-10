@@ -1,4 +1,3 @@
 $LOAD_PATH.unshift File.expand_path("../../lib", __FILE__)
-require "splendor"
-
-require "minitest/autorun"
+require 'splendor'
+require 'minitest/autorun'
