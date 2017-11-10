@@ -1,0 +1,36 @@
+-
+  gem: emerald
+  level: 1
+  points: 0
+  cost:
+    sapphire: 1
+    ruby: 2
+    onyx: 2
+-
+  gem: ruby
+  level: 1
+  points: 0
+  cost:
+    diamond: 2
+    sapphire: 1
+    emerald: 1
+    onyx: 1
+-
+  gem: diamond
+  level: 1
+  points: 1
+  cost:
+    emerald: 4
+-
+  gem: onyx
+  level: 1
+  points: 1
+  cost:
+    sapphire: 4
+-
+  gem: sapphire
+  level: 1
+  cost:
+    sapphire: 1
+    emerald: 3
+    ruby: 1

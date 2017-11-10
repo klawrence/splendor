@@ -9,12 +9,7 @@ class GameTest < Minitest::Test
     assert_equal 4, @game.players.count
   end
 
-  def test_game_has_90_cards
-    assert_equal 90, @game.game_cards.count
-  end
-
   def test_game_starts_with_12_cards_on_the_table
-    assert_equal 12, @game.cards_on_table
-    assert_equal 78, @game.cards_in_deck
+    assert_equal 12, @game.cards_on_table.flatten.count
   end
 end
