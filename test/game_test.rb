@@ -13,10 +13,6 @@ class GameTest < Minitest::Test
     assert_equal 12, @game.cards_on_table.flatten.count
   end
 
-  def test_start_with_12_cards
-    assert_equal 12, @game.cards_on_table.flatten.count
-  end
-
   def test_each_level_has_4_cards
     (1..3).each { |level|
       cards_in_level = @game.cards_on_table[level-1]
@@ -29,6 +25,10 @@ class GameTest < Minitest::Test
     assert_equal 6, @game.gem_stacks.count
     assert_equal 7, @game.gem_stacks['diamonds'].count
     assert_equal 5, @game.gem_stacks['gold'].count
+  end
+
+  def there_are_5_nobles
+    assert_equal 5, @game.nobles.count
   end
 
 

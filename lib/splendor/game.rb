@@ -1,5 +1,6 @@
 require 'splendor/player'
 require 'splendor/card'
+require 'splendor/noble'
 
 module Splendor
   class Game
@@ -9,6 +10,7 @@ module Splendor
       load_cards
       deal_cards
       place_gems
+      place_nobles
       add_players
     end
 
@@ -24,16 +26,6 @@ module Splendor
       end
     end
 
-    def place_gems
-      @gem_stacks = {}
-
-      Splendor::GEMS.each do |gem|
-        @gem_stacks[gem] = 7
-      end
-
-      @gem_stacks['gold'] = 5
-    end
-
     def deal_cards
       @cards_on_table = [
           [],
@@ -45,6 +37,21 @@ module Splendor
           @cards_on_table[level] << @cards_by_level[level].pop
         }
       }
+    end
+
+    def place_gems
+      @gem_stacks = {}
+
+      Splendor::GEMS.each do |gem|
+        @gem_stacks[gem] = 7
+      end
+
+      @gem_stacks['gold'] = 5
+    end
+
+    def place_nobles
+      all_nobles = Splendor::Noble.load_nobles
+      @nobles = all_nobles.shuffle[1..5]
     end
 
     def add_players

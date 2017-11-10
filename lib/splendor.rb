@@ -2,5 +2,5 @@ require 'splendor/version'
 require 'splendor/game'
 
 module Splendor
-  # Your code goes here...
+  GEMS = %w(diamond ruby emerald sapphire onyx gold)
 end

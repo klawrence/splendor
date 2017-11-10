@@ -1,8 +1,6 @@
 require 'splendor/cost'
 
 module Splendor
-  GEMS = %w(diamond ruby emerald sapphire onyx gold)
-
   class Card
 
     attr_reader :level, :gem, :points, :cost
