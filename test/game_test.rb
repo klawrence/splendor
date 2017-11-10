@@ -14,9 +14,10 @@ class GameTest < Minitest::Test
   end
 
   def test_each_level_has_4_cards
-    3.times { |level|
-      assert_equal 4, @game.cards_on_table[level].count
-      4.times { |i| assert_equal level, @game.cards_on_table[level][i].level }
+    (1..3).each { |level|
+      cards_in_level = @game.cards_on_table[level-1]
+      assert_equal 4, cards_in_level.count
+      4.times { |i| assert_equal level, cards_in_level[i].level }
     }
   end
 

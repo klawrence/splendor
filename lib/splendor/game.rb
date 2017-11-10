@@ -17,7 +17,10 @@ module Splendor
           [],
           []
       ]
-      Splendor::Card.load_cards.shuffle.each {|card| @cards_by_level[card.level] << card }
+      cards = Splendor::Card.load_cards
+      cards.shuffle.each do |card|
+        @cards_by_level[card.level - 1] << card
+      end
     end
 
     def deal_cards

@@ -5,20 +5,26 @@ module Splendor
 
   class Card
 
-    attr_reader :level, :gem, :cost
+    attr_reader :level, :gem, :points, :cost
 
-    def initialize level, gem, cost
-      @level = level
-      @gem = gem
-      @cost = cost
+    def initialize definition
+      @level = definition['level']
+      @gem = definition['gem']
+      @points = definition['points']
+      @cost = Splendor::Cost.new(definition['cost'])
     end
 
     def self.load_cards
       entries = YAML.load_file 'config/cards.yml'
-      entries.map do |entry|
-        Card.new entry['level'], entry['gem'], Splendor::Cost.new(entry['cost'])
+
+      # TODO fix this when we have all 90 cards
+      (entries * 10).map do |definition|
+        Card.new definition
       end
     end
 
+    def to_s
+      "LEVEL #{level}: #{gem} #{points} points"
+    end
   end
 end
