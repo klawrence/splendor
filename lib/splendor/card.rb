@@ -1,24 +1,22 @@
-require 'yaml'
+require 'splendor/cost'
 
 module Splendor
-  GEMS = [ :diamond, :ruby, :emerald, :sapphire, :onyx, :gold]
+  GEMS = %w(diamond ruby emerald sapphire onyx gold)
 
   class Card
 
-    attr_reader :level, :gem
+    attr_reader :level, :gem, :cost
 
-    def initialize level, gem
+    def initialize level, gem, cost
       @level = level
       @gem = gem
+      @cost = cost
     end
 
     def self.load_cards
       entries = YAML.load_file 'config/cards.yml'
       entries.map do |entry|
-        card = Card.new entry['level'], entry['gem']
-        # entry['cost'].each do |gem, cost|
-        #   card.costs << Cost.new gem
-        # end
+        Card.new entry['level'], entry['gem'], Splendor::Cost.new(entry['cost'])
       end
     end
 
