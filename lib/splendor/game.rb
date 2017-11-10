@@ -34,7 +34,7 @@ module Splendor
       ]
       3.times { |level|
         4.times {
-          @cards_on_table[level] << @cards_by_level[level].pop
+          @cards_on_table[level] << next_card(level)
         }
       }
     end
@@ -59,22 +59,37 @@ module Splendor
       @next_player = @players.first
     end
 
-    def choose_three_gems player, gems
+    def card_at level, column
+      cards_on_table[level][column]
+    end
+
+    def next_card level
+      @cards_by_level[level].pop
+    end
+
+    def take_three_gems player, gems
       # TODO check choices are valid
       gems.each do |gem|
-        take_gem(gem, player)
+        take_gem player, gem
       end
     end
 
-    def choose_two_gems_of_same_color player, gem
+    def take_two_gems_of_same_color player, gem
       # TODO check choices are valid
       2.times do
-        take_gem(gem, player)
+        take_gem player, gem
       end
+    end
+
+    def take_card player, level, column
+      card = card_at level, column
+
+      cards_on_table[level][column] = next_card(level)
+      player.add_card card
     end
 
     private
-    def take_gem(gem, player)
+    def take_gem player, gem
       gem_stacks[gem] -= 1
       player.add_gem gem
     end
