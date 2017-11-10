@@ -1,4 +1,5 @@
 require 'splendor/version'
+require 'splendor/config'
 require 'splendor/game'
 
 module Splendor
@@ -6,13 +7,5 @@ module Splendor
 
   def self.root_dir
     File.dirname __dir__
-  end
-
-  def self.config_dir
-    File.join root_dir, 'config'
-  end
-
-  def self.config_file name
-    File.join Splendor.config_dir, name
   end
 end

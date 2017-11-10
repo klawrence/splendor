@@ -10,7 +10,7 @@ module Splendor
     end
 
     def self.load_nobles
-      entries = YAML.load_file filename
+      entries = YAML.load_file Splendor::Config.nobles_file
 
       # TODO fix this when we have all 10 nobles
       (entries * 5).map do |definition|
@@ -20,10 +20,6 @@ module Splendor
 
     def to_s
       "#{points} points"
-    end
-
-    def self.filename
-      Splendor.config_file 'nobles.yml'
     end
   end
 end
