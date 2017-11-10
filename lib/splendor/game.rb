@@ -66,6 +66,13 @@ module Splendor
       end
     end
 
+    def choose_two_gems_of_same_color player, gem
+      # TODO check choices are valid
+      2.times do
+        take_gem(gem, player)
+      end
+    end
+
     private
     def take_gem(gem, player)
       gem_stacks[gem] -= 1
