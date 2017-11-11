@@ -5,7 +5,8 @@ module Splendor
     attr_reader :gems
 
     def initialize gems
-      @gems = gems
+      @gems = {}
+      gems.each{ |gem, amount| @gems[gem.to_sym] = amount }
     end
 
     def to_s

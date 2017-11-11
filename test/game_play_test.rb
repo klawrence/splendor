@@ -45,17 +45,24 @@ class GamePlayTest < Minitest::Test
     assert_equal 7, @game.gems[:emerald]
   end
 
-  def test_take_a_card
+  def test_buy_a_card
     player = @game.players.first
+    Splendor::GEMS[0..5].each do |gem|
+      @game.take_two_gems_of_same_color player, gem
+    end
 
     level = 1
     column = 2
-
     card = @game.card_at(level, column)
 
-    @game.take_card player, level, column
+    @game.buy_card player, level, column
 
     assert_equal card, player.cards[card.gem].first
     refute_equal card, @game.card_at(level, column)
+
+    card.cost.gems.each { |gem, cost|
+      assert_equal (7 - 2 + cost), @game.gems[gem]
+      assert_equal (2 - cost), player.gems[gem]
+    }
   end
 end

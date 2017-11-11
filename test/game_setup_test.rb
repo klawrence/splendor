@@ -21,13 +21,13 @@ class GameSetupTest < Minitest::Test
     }
   end
 
-  def there_are_6_stacks_of_gems
-    assert_equal 6, @game.gem_stacks.count
-    assert_equal 7, @game.gems['diamonds'].count
-    assert_equal 5, @game.gem_stacks['gold'].count
+  def test_there_are_6_stacks_of_gems
+    assert_equal 6, @game.gems.count
+    assert_equal 7, @game.gems[:diamond]
+    assert_equal 5, @game.gems[:gold]
   end
 
-  def there_are_5_nobles
+  def test_there_are_5_nobles
     assert_equal 5, @game.nobles.count
   end
 

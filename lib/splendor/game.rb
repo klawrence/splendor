@@ -4,7 +4,7 @@ require 'splendor/noble'
 
 module Splendor
   class Game
-    attr_accessor :cards, :gems, :players, :next_player
+    attr_accessor :cards, :nobles, :gems, :players, :next_player
 
     def initialize
       load_cards
@@ -46,7 +46,7 @@ module Splendor
         @gems[gem] = 7
       end
 
-      @gems['gold'] = 5
+      @gems[:gold] = 5
     end
 
     def place_nobles
@@ -60,11 +60,11 @@ module Splendor
     end
 
     def card_at level, column
-      cards[level][column]
+      cards[level-1][column]
     end
 
     def next_card level
-      @cards_by_level[level].pop
+      @cards_by_level[level-1].pop
     end
 
     def take_three_gems player, gems
@@ -81,11 +81,16 @@ module Splendor
       end
     end
 
-    def take_card player, level, column
+    def buy_card player, level, column
       card = card_at level, column
 
-      cards[level][column] = next_card(level)
+      cards[level-1][column] = next_card(level)
       player.add_card card
+
+      card.cost.gems.each { |gem, cost|
+        gems[gem] += cost
+        player.gems[gem] -= cost
+      }
     end
 
     private

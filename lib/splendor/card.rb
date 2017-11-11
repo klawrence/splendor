@@ -6,8 +6,8 @@ module Splendor
     attr_reader :level, :gem, :points, :cost
 
     def initialize definition
+      @gem = definition['gem'].to_sym
       @level = definition['level']
-      @gem = definition['gem']
       @points = definition['points']
       @cost = Splendor::Cost.new(definition['cost'])
     end
