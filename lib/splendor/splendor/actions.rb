@@ -22,8 +22,6 @@ module Splendor
     def buy_card level, column
       # TODO check choices are valid
       card = card_at level, column
-
-      cards[level-1][column] = next_card(level)
       current_player.add_card card
 
       card.cost.gems.each {|gem, cost|
@@ -31,9 +29,13 @@ module Splendor
         current_player.gems[gem] -= cost
       }
 
+      next_card = next_card level
+      replace_card_at level, column, next_card
+
       advance_turn
 
       card
     end
+
   end
 end

@@ -21,9 +21,12 @@ module Splendor
       @current_player = players[(index+1) % players.count]
     end
 
-
     def card_at level, column
       cards[level-1][column]
+    end
+
+    def replace_card_at level, column, card
+      cards[level-1][column] = card
     end
 
     def next_card level

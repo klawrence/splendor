@@ -48,24 +48,26 @@ class GamePlayTest < Minitest::Test
   def test_buy_a_card
     player = @game.current_player
 
+    card = Splendor::Card.new 'gem' => :diamond, 'cost' => { ruby: 2, onyx: 1 }, 'points' => 1
     level = 1
     column = 2
-    card = @game.card_at(level, column)
+
+    card = @game.replace_card_at level, column, card
 
     # make sure the player can afford it
-    card.cost.gems.each { |gem, cost|
-      cost.times { @game.take_gem gem }
-    }
+    @game.take_gem :ruby
+    @game.take_gem :ruby
+    @game.take_gem :onyx
 
     @game.buy_card level, column
 
     assert_equal card, player.cards[card.gem].first
     refute_equal card, @game.card_at(level, column)
 
-    Splendor::GEMS[0..-2].each do |gem|
-      assert_equal 7, @game.gems[gem]
-      assert_equal 0, player.gems[gem]
-    end
+    assert_equal 7, @game.gems[:ruby]
+    assert_equal 7, @game.gems[:onyx]
+    assert_equal 0, player.gems[:ruby]
+    assert_equal 0, player.gems[:onyx]
 
     refute_equal player, @game.current_player
   end
