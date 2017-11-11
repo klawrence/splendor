@@ -60,7 +60,11 @@ module Splendor
     end
 
     def card_at level, column
-      cards[level-1][column]
+      cards_at_level(level)[column]
+    end
+
+    def cards_at_level(level)
+      cards[level-1]
     end
 
     def next_card level
@@ -84,7 +88,7 @@ module Splendor
     def buy_card player, level, column
       card = card_at level, column
 
-      cards[level-1][column] = next_card(level)
+      cards_at_level(level)[column] = next_card(level)
       player.add_card card
 
       card.cost.gems.each { |gem, cost|
