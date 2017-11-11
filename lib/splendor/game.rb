@@ -27,15 +27,8 @@ module Splendor
     end
 
     def deal_cards
-      @cards = [
-          [],
-          [],
-          []
-      ]
-      3.times { |level|
-        4.times {
-          cards[level] << next_card(level)
-        }
+      @cards = (1..3).map { |level|
+        (1..4).map{ |_column| next_card(level)}
       }
     end
 
@@ -60,11 +53,7 @@ module Splendor
     end
 
     def card_at level, column
-      cards_at_level(level)[column]
-    end
-
-    def cards_at_level(level)
-      cards[level-1]
+      cards[level-1][column]
     end
 
     def next_card level
@@ -88,7 +77,7 @@ module Splendor
     def buy_card player, level, column
       card = card_at level, column
 
-      cards_at_level(level)[column] = next_card(level)
+      cards[level-1][column] = next_card(level)
       player.add_card card
 
       card.cost.gems.each { |gem, cost|
