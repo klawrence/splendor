@@ -12,7 +12,7 @@ module Splendor
     include Splendor::Setup
     include Splendor::Actions
 
-    attr_accessor :cards, :nobles, :gems, :players, :next_player
+    attr_reader :cards, :nobles, :gems, :players, :next_player
 
     def initialize
       setup
