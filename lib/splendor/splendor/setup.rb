@@ -43,7 +43,7 @@ module Splendor
 
     def add_players
       @players = Splendor::Player.create_players 4
-      @next_player = @players.first
+      @current_player = @players.first
     end
   end
 end

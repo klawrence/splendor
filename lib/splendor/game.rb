@@ -4,19 +4,23 @@ require 'splendor/noble'
 
 module Splendor
   require_relative 'splendor/setup.rb'
-
   require_relative 'splendor/actions.rb'
-
 
   class Game
     include Splendor::Setup
     include Splendor::Actions
 
-    attr_reader :cards, :nobles, :gems, :players, :next_player
+    attr_reader :cards, :nobles, :gems, :players, :current_player
 
     def initialize
       setup
     end
+
+    def advance_turn
+      index = players.find_index current_player
+      @current_player = players[(index+1) % players.count]
+    end
+
 
     def card_at level, column
       cards[level-1][column]
@@ -26,10 +30,9 @@ module Splendor
       @cards_by_level[level-1].pop
     end
 
-    private
-    def take_gem player, gem
+    def take_gem gem
       gems[gem] -= 1
-      player.add_gem gem
+      current_player.add_gem gem
     end
   end
 end

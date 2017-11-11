@@ -6,13 +6,13 @@ class GamePlayTest < Minitest::Test
   end
 
   def test_first_players_turn
-    assert_equal @game.players.first, @game.next_player
+    assert_equal @game.players.first, @game.current_player
   end
 
   def test_take_three_gems
     player = @game.players.first
 
-    @game.take_three_gems player, [:diamond, :ruby, :onyx]
+    @game.take_three_gems [:diamond, :ruby, :onyx]
 
     assert_equal 1, player.gems[:diamond]
     assert_equal 1, player.gems[:ruby]
@@ -30,7 +30,7 @@ class GamePlayTest < Minitest::Test
   def test_take_two_gems_same_colour
     player = @game.players.first
 
-    @game.take_two_gems_of_same_color player, :diamond
+    @game.take_two_gems_of_same_color :diamond
 
     assert_equal 2, player.gems[:diamond]
     assert_equal 0, player.gems[:ruby]
@@ -46,23 +46,27 @@ class GamePlayTest < Minitest::Test
   end
 
   def test_buy_a_card
-    player = @game.players.first
-    Splendor::GEMS[0..5].each do |gem|
-      @game.take_two_gems_of_same_color player, gem
-    end
+    player = @game.current_player
 
     level = 1
     column = 2
     card = @game.card_at(level, column)
 
-    @game.buy_card player, level, column
+    # make sure the player can afford it
+    card.cost.gems.each { |gem, cost|
+      cost.times { @game.take_gem gem }
+    }
+
+    @game.buy_card level, column
 
     assert_equal card, player.cards[card.gem].first
     refute_equal card, @game.card_at(level, column)
 
-    card.cost.gems.each { |gem, cost|
-      assert_equal (7 - 2 + cost), @game.gems[gem]
-      assert_equal (2 - cost), player.gems[gem]
-    }
+    Splendor::GEMS[0..-2].each do |gem|
+      assert_equal 7, @game.gems[gem]
+      assert_equal 0, player.gems[gem]
+    end
+
+    refute_equal player, @game.current_player
   end
 end
