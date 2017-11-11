@@ -20,6 +20,14 @@ module Splendor
       @points += card.points
     end
 
+    def can_afford? card
+      card.cost.gems.each do |gem, cost|
+        return false if gems[gem] < cost
+      end
+
+      true
+    end
+
     def self.create_players count
       players = []
       count.times{ |i| players << Player.new( NAMES[i]) }

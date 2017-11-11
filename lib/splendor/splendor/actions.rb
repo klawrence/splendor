@@ -32,6 +32,8 @@ module Splendor
       }
 
       advance_turn
+
+      card
     end
   end
 end
